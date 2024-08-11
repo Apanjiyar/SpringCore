@@ -1,0 +1,69 @@
+### Spring Bean Scopes in XML Configuration
+
+In Spring, you can define the scope of beans in your XML configuration file. Here are examples for the primary scopes:
+
+1. **Singleton (default)**: One instance per Spring IoC container.
+
+```xml
+<bean id="singletonBean" class="com.example.MyBean" />
+```
+
+2. **Prototype**: A new instance each time the bean is requested.
+
+```xml
+<bean id="prototypeBean" class="com.example.MyBean" scope="prototype" />
+```
+
+3. **Request**: One instance per HTTP request (web applications).
+
+```xml
+<bean id="requestBean" class="com.example.MyBean" scope="request" />
+```
+
+4. **Session**: One instance per HTTP session (web applications).
+
+```xml
+<bean id="sessionBean" class="com.example.MyBean" scope="session" />
+```
+
+5. **Global Session**: One instance per global HTTP session (portlet applications).
+
+```xml
+<bean id="globalSessionBean" class="com.example.MyBean" scope="globalSession" />
+```
+
+### Example Configuration
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Singleton scope (default) -->
+    <bean id="singletonBean" class="com.example.SingletonBean" />
+
+    <!-- Prototype scope -->
+    <bean id="prototypeBean" class="com.example.PrototypeBean" scope="prototype" />
+
+    <!-- Request scope -->
+    <bean id="requestBean" class="com.example.RequestBean" scope="request" />
+
+    <!-- Session scope -->
+    <bean id="sessionBean" class="com.example.SessionBean" scope="session" />
+
+    <!-- Global session scope -->
+    <bean id="globalSessionBean" class="com.example.GlobalSessionBean" scope="globalSession" />
+
+</beans>
+```
+
+### Summary
+
+- **Singleton**: Default scope; single instance per IoC container.
+- **Prototype**: New instance per request.
+- **Request**: One instance per HTTP request.
+- **Session**: One instance per HTTP session.
+- **Global Session**: One instance per global HTTP session (portlet applications).
+
+For more details, refer to the [Spring documentation on bean scopes](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes).

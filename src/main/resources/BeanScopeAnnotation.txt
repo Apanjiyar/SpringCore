@@ -1,0 +1,22 @@
+In Spring, bean scopes define the lifecycle and visibility of a bean within the application context. Here are the primary bean scopes:
+
+1. **Singleton** (`@Scope("singleton")`): A single instance per Spring IoC container (default scope).
+2. **Prototype** (`@Scope("prototype")`): A new instance is created every time the bean is requested.
+3. **Request** (`@Scope("request")`): A single instance per HTTP request (used in web applications).
+4. **Session** (`@Scope("session")`): A single instance per HTTP session (used in web applications).
+5. **Global Session** (`@Scope("globalSession")`): A single instance per global HTTP session (used in portlet applications).
+
+### Example:
+
+```java
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
+public class MyPrototypeBean {
+    // Bean definition
+}
+```
+
+For more detailed information, refer to the [Spring documentation on bean scopes](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes).

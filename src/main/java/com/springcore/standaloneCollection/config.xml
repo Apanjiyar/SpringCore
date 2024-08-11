@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+            http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+            http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+            
+    <context:annotation-config />
+	
+	<!-- Standalone List Collection -->
+	<util:list list-class="java.util.LinkedList" id="frinedsList">
+		<value>Aman</value>
+		<value>Raman</value>
+		<value>Chaman</value>
+		<value>Paman</value>		
+	</util:list>
+	
+	<!-- Standalone Set Collection -->
+	<util:set set-class="java.util.HashSet" id="skillSet">
+		<value>Core Java</value>
+		<value>Advance Java</value>
+		<value>Java Script</value>
+		<value>JPA</value>
+		<value>Hibernate</value>
+		<value>Spring</value>
+	</util:set>
+	
+	<!-- Standalone Map Collection -->
+	<util:map map-class="java.util.HashMap" id="coursesMap">
+		<entry key="Core Java" value="2 Months" />
+		<entry key="Advance Java" value="4 Months" />
+		<entry key="Spring Framework" value="3 Months" />
+		<entry key="Angular" value="3 Months" />		
+	</util:map>
+	
+	<!-- Standalone Properties Collection -->
+	<util:properties id="eduInfo">
+        <prop key="mca">8 CGPA</prop>
+        <prop key="graducation">7.5 CGPA</prop>
+        <prop key="12th">80%</prop>
+        <prop key="10th">90%</prop>
+    </util:properties>
+	
+	<bean class="com.springcore.standaloneCollection.Person" name="p1">
+		<property name="friends" ref="frinedsList" />
+		<property name="skills" ref="skillSet" />
+		<property name="courses" ref="coursesMap" />
+		<property name="eduInfo" ref="eduInfo" />
+	</bean>
+</beans>

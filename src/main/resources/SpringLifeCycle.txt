@@ -1,0 +1,60 @@
+### Notes on Spring `@PostConstruct` and `@PreDestroy` Annotations
+
+**Introduction**
+- Spring allows attaching custom actions to bean creation and destruction.
+- These actions can be implemented using `InitializingBean` and `DisposableBean` interfaces or annotations like `@PostConstruct` and `@PreDestroy`.
+
+**@PostConstruct**
+- Annotated methods run once after the bean's properties are initialized.
+- Methods can have any access level but cannot be static.
+- Common use: populating a database during development.
+
+**Example:**
+```java
+@Component
+public class DbInit {
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostConstruct
+    private void postConstruct() {
+        User admin = new User("admin", "admin password");
+        User normalUser = new User("user", "user password");
+        userRepository.save(admin, normalUser);
+    }
+}
+```
+
+**@PreDestroy**
+- Annotated methods run once just before the bean is removed from the application context.
+- Methods can have any access level but cannot be static.
+- Common use: releasing resources like closing database connections.
+
+**Example:**
+```java
+@Component
+public class UserRepository {
+    private DbConnection dbConnection;
+
+    @PreDestroy
+    public void preDestroy() {
+        dbConnection.close();
+    }
+}
+```
+
+**Java 9+ Considerations**
+- `@PostConstruct` and `@PreDestroy` are part of Java EE.
+- Java 9 deprecated and Java 11 removed Java EE, requiring additional dependencies:
+```xml
+<dependency>
+    <groupId>javax.annotation</groupId>
+    <artifactId>javax.annotation-api</artifactId>
+    <version>1.3.2</version>
+</dependency>
+```
+
+**Conclusion**
+- `@PostConstruct` and `@PreDestroy` annotations simplify bean lifecycle management.
+
+For more detailed information, you can refer to the original article on [Baeldung](https://www.baeldung.com/spring-postconstruct-predestroy).

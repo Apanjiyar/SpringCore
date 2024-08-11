@@ -1,0 +1,59 @@
+The `AbstractApplicationContext` class in the Spring Framework is a crucial part of the context hierarchy. Understanding this hierarchy is essential for comprehending how Spring manages application contexts, which are pivotal for dependency injection, bean lifecycle management, and context configuration.
+
+### Overview of Spring Application Context Hierarchy
+
+In Spring, the application context hierarchy allows multiple contexts to exist with parent-child relationships. This hierarchy helps in sharing beans between contexts while allowing each context to have its own set of beans.
+
+### Key Components of the Hierarchy
+
+1. **`ApplicationContext` Interface**:
+   - The central interface to provide configuration for an application.
+   - This is read-only while the application is running but may be reloaded if necessary and supported by the implementation.
+
+2. **`AbstractApplicationContext` Class**:
+   - A base class implementing common context functionality.
+   - It extends `DefaultResourceLoader` and implements the `ApplicationContext` interface, providing base functionalities like bean factory management, event propagation, and resource loading.
+   - This class also manages the lifecycle of beans and propagates events to registered listeners.
+
+3. **Concrete Implementations**:
+   - `ClassPathXmlApplicationContext`: Loads context definitions from XML files located in the classpath.
+   - `FileSystemXmlApplicationContext`: Loads context definitions from XML files in the file system.
+   - `AnnotationConfigApplicationContext`: Configures the application context using Java-based configuration.
+
+### Hierarchy Structure
+
+1. **`ConfigurableApplicationContext`**:
+   - Extends `ApplicationContext` and adds methods to configure the application context in addition to the lifecycle methods.
+
+2. **`AbstractApplicationContext`**:
+   - Extends `DefaultResourceLoader` and implements `ConfigurableApplicationContext`.
+   - Manages the application context's lifecycle, including start, stop, and close operations.
+   - Handles event propagation and listener registration.
+   - Manages bean factory post-processors and provides common context functionalities.
+
+3. **Child Contexts**:
+   - Child contexts can be created, sharing beans defined in the parent context while having their own local beans.
+   - Child contexts are useful in modular applications, where different modules need different beans but share some common configuration.
+
+### Example of Parent-Child Contexts
+
+Consider the following setup:
+
+```java
+ApplicationContext parentContext = new ClassPathXmlApplicationContext("parent-config.xml");
+ConfigurableApplicationContext childContext = new ClassPathXmlApplicationContext(new String[]{"child-config.xml"}, parentContext);
+```
+
+In this example:
+- `parentContext` is loaded with beans defined in `parent-config.xml`.
+- `childContext` is loaded with beans defined in `child-config.xml` and has access to beans in `parentContext`.
+
+### Key Points
+
+- **Bean Inheritance**: Beans in the child context can access and override beans defined in the parent context.
+- **Event Propagation**: Events raised in the parent context are propagated to the child context, and vice versa.
+- **Resource Sharing**: Resources like message sources, properties, and environment settings can be shared across the context hierarchy.
+
+### Summary
+
+The `AbstractApplicationContext` and its hierarchy in Spring provide a flexible and modular approach to managing application contexts. This hierarchy allows for shared configurations and resources while maintaining the independence of different modules within an application. Understanding this hierarchy is vital for effective Spring application development, particularly in large-scale and modular applications.
